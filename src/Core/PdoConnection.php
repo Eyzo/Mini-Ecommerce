@@ -41,5 +41,14 @@ class PdoConnection {
         return $results;
     }
 
+    public function find($id) {
+        $statement = $this->getPDO()->prepare("SELECT * FROM {$this->table} WHERE id= :id");
+        $statement->bindValue(':id',$id);
+        $statement->execute();
+        $statement->setFetchMode(\PDO::FETCH_CLASS,$this->class);
+        $result = $statement->fetch();
+        return $result;
+    }
+
 
 }

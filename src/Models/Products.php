@@ -53,6 +53,16 @@ class Products {
         return $this->media_id;
     }
 
+    public function getExtrait(int $limit) {
+
+        if (strlen($this->description) > $limit) {
+            $text = substr($this->description,0,$limit);
+            $lastSpace = strrpos($this->description,' ');
+            $text = substr($text,0,$lastSpace);
+        }
+
+        return $text.'...';
+    }
 
 
 

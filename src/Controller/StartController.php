@@ -10,19 +10,55 @@ class StartController extends Controller {
         $repo = parent::getRepository('Products');
         $products = $repo->findAll();
 
-        dump($products);
-
         parent::render('home/index.php',[
             'title' => 'Home',
-            'description' => 'Mini Site e-commerce ou vous pouvez trouver toute sortent de produits'
+            'description' => 'Mini Site e-commerce ou vous pouvez trouver toute sortent de produits',
+            'products' => $products
         ]);
     }
 
-    public static function products(int $id) {
+    public static function addPanier($id) {
 
+        if (!isset($_SESSION['panier'][$id])) {
 
-        parent::render('home/products.php',[
-           'id' => $id
+            $_SESSION['panier'][$id] = 1;
+
+        } else {
+
+         $_SESSION['panier'][$id]++;
+
+        }
+
+        header('Location: /panier');
+
+    }
+
+    public static function panier() {
+
+        if (isset($_SESSION['panier'])) {
+
+            $panier = $_SESSION['panier'];
+
+        } else {
+
+            $_SESSION['panier'] = [];
+            $panier = $_SESSION['panier'];
+
+        }
+
+        $produits = [];
+
+        foreach($panier as $produit => $quantite) {
+
+            $repo = parent::getRepository('Products');
+            $produit = $repo->find(intval($produit));
+
+            $produits[] = $produit;
+        }
+
+        parent::render('home/panier.php',[
+            'panier' => $panier,
+            'produits' => $produits
         ]);
     }
 

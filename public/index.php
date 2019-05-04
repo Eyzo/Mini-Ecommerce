@@ -1,5 +1,7 @@
 <?php require '../vendor/autoload.php';
 use App\Controller\StartController;
+session_start();
+
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r){
 
@@ -7,8 +9,12 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r){
         StartController::index();
     });
 
-    $r->addRoute('GET','/{id: \d+}',function ($id){
-        StartController::products($id);
+    $r->addRoute('GET','/panier/add/{id: \d+}',function ($id){
+        StartController::addPanier($id);
+    });
+
+    $r->addRoute('GET','/panier',function (){
+        StartController::panier();
     });
 });
 
