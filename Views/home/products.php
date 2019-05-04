@@ -1,0 +1,1 @@
+<?= "produit numéro ".$id ?>
