@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\Controller;
+use Plasticbrain\FlashMessages\FlashMessages;
 
 class StartController extends Controller {
 
@@ -60,6 +61,18 @@ class StartController extends Controller {
             'panier' => $panier,
             'produits' => $produits
         ]);
+    }
+
+    public static function produit($id) {
+
+        $repo = parent::getRepository('Products');
+        $produit = $repo->find($id);
+
+
+        parent::render('home/produit.php',[
+            'produit' => $produit
+        ]);
+
     }
 
 

@@ -1,5 +1,6 @@
 <?php require '../vendor/autoload.php';
 use App\Controller\StartController;
+use App\Controller\SecurityController;
 session_start();
 
 
@@ -16,6 +17,23 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r){
     $r->addRoute('GET','/panier',function (){
         StartController::panier();
     });
+
+    $r->addRoute(['GET','POST'],'/login',function (){
+        SecurityController::login();
+    });
+
+    $r->addRoute('GET','/logout',function (){
+        SecurityController::logout();
+    });
+
+    $r->addRoute(['GET','POST'],'/register',function (){
+        SecurityController::register();
+    });
+
+    $r->addRoute('GET','/produit/{id: \d+}',function ($id){
+        StartController::produit($id);
+    });
+
 });
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];

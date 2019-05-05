@@ -9703,5 +9703,8 @@ footer p {
     font-size: 3.5rem;
   }
 }
+.login-button {
+  margin: auto;
+}
 
 /*# sourceMappingURL=style.css.map */

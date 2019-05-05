@@ -1,3 +1,5 @@
+<div class="row">
+
 <?php foreach ($products as $produit): ?>
 
 <div class="col-md-4">
@@ -9,7 +11,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     <a class="btn btn-success" href="/panier/add/<?= $produit->getId() ?>">Ajouter au panier</a>
-                    <button type="button" class="btn btn-secondary">Voir</button>
+                    <a class="btn btn-secondary" href="/produit/<?= $produit->getId() ?>">Voir</a>
                 </div>
                 <small class="text-muted">9 mins</small>
             </div>
@@ -18,3 +20,5 @@
 </div>
 
 <?php endforeach; ?>
+
+</div>

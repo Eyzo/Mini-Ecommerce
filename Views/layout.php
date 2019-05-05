@@ -13,7 +13,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="/asset/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 </head>
 <body>
@@ -31,8 +32,26 @@
                         <a class="nav-link" href="/">Accueil</a>
                     </li>
                     <li class="nav-item <?php if($_SERVER['REQUEST_URI'] === '/panier') { echo 'active'; }?>">
-                        <a class="nav-link" href="/panier">Panier</a>
+                        <a class="nav-link" href="/panier"><i class="fas fa-shopping-cart"></i>
+                            <?php
+                            if (isset($_SESSION['panier'])){
+                                echo count($_SESSION['panier']); }
+                            else { echo 'Aucun produit'; }    ?></a>
                     </li>
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item <?php if($_SERVER['REQUEST_URI'] === '/login') { echo 'active'; }?>">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (!isset($_SESSION['user'])) : ?>
+                        <li class="nav-item <?php if ($_SERVER['REQUEST_URI'] === '/register'){ echo 'active'; } ?>">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -48,9 +67,19 @@
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <div class="row">
+            <?php
+            if (isset($msg)) {
+                if ($msg->hasErrors()) {
+                    $msg->display();
+                } else {
+                    $msg->display();
+                }
+            }
+            ?>
+
+
                 <?= $content ?>
-            </div>
+
         </div>
     </div>
 
